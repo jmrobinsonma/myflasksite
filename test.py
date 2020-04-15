@@ -1,12 +1,12 @@
-import mynotebook_page
+import myflasksite 
 import unittest
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        mynotebook_page.app.testing = True
-        self.app = mynotebook_page.app.test_client()
+        myflasksite.app.testing = True
+        self.app = myflasksite.app.test_client()
 
     def test_home(self):
         response = self.app.get('/')
