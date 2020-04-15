@@ -31,7 +31,7 @@ jobs:
       - checkout
       - run:
           command: |
-            git push https://heroku:09a6a2ce-8981-47f5-9bdb-3b1f24b901f3@git.heroku.com/my-notebook-site.git master  
+            git push https://heroku:1c110356-ab04-4b28-9642-36a5f61ca1b0@git.heroku.com/my-notebook-site.git master  
 
 workflows:
   version: 2.1
