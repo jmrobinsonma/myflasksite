@@ -10,3 +10,7 @@ def home():
 @app.route('/myscrapbook')
 def myscrapbook():
 	return render_template('mynotebook.html')
+
+@app.route('/freestuff_app_book')
+def freestuff_app_book():
+	return render_template('freestuff_app_book.html')
