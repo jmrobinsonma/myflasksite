@@ -6,7 +6,6 @@ from app import app
 def home():
 	return render_template('index.html')
 
-
 @app.route('/myscrapbook')
 def myscrapbook():
 	return render_template('mynotebook.html')
