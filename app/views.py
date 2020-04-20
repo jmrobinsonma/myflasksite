@@ -14,3 +14,7 @@ def myscrapbook():
 @app.route('/freestuff_app_book')
 def freestuff_app_book():
 	return render_template('freestuff_app_book.html')
+
+@app.route('/dicebook')
+def dicebook():
+	return render_template('dicebook.html')

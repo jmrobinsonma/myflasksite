@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>freestuff_app_book</title>
+<title>dicebook</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -16343,7 +16343,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": false, "skip_h1_title": true, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "589px", "left": "1280px", "top": "84px", "width": "320px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": false, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "740px", "left": "1024px", "top": "179px", "width": "256px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -16358,7 +16358,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Program to view latest search results</p>
+<h1>Roll Dice <a class="tocSkip"></h1>
 
 </div>
 </div>
@@ -16366,550 +16366,208 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Command-Line-Interface-App">Command Line Interface App<a class="anchor-link" href="#Command-Line-Interface-App">&#182;</a></h2>
+<h2 id="Initial-script">Initial script<a class="anchor-link" href="#Initial-script">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class=" highlight hl-ipython3"><pre><span></span>    <span class="kn">import</span> <span class="nn">random</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---ROLL DICE---&quot;</span><span class="p">)</span>
+
+    <span class="n">rolls</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">userList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">userDicelist</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">userDice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many dice?</span><span class="se">\n</span><span class="s2">--&gt;&quot;</span><span class="p">))</span>
+    <span class="n">userDicelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">userDice</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">userDicelist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">userRolls</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many rolls?</span><span class="se">\n</span><span class="s2">--&gt;&quot;</span><span class="p">))</span>
+
+    <span class="n">userSides</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many sides?</span><span class="se">\n</span><span class="s2">--&gt;&quot;</span><span class="p">))</span>
+
+    <span class="n">userPrompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Press </span><span class="se">\&#39;</span><span class="s2">r&#39; to roll the dice</span><span class="se">\n</span><span class="s2">Press </span><span class="se">\&#39;</span><span class="s2">q&#39; to quit</span><span class="se">\n</span><span class="s2"> --&gt;&quot;</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">rolls</span> <span class="o">!=</span> <span class="n">userRolls</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">userPrompt</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                <span class="n">userNum</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">userSides</span><span class="p">)</span>
+                <span class="n">userList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">userNum</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">You rolled:</span><span class="se">\n</span><span class="s2">----</span><span class="si">{}</span><span class="s2">----&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">userNum</span><span class="p">))</span>
+            <span class="n">rolls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">(</span><span class="si">{}</span><span class="s2"> rolls)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rolls</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Your rolls: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">userList</span><span class="p">))</span>
+            <span class="n">userPrompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Press </span><span class="se">\&#39;</span><span class="s2">r&#39; to roll the dice --&gt;&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">userPrompt</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">userPrompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Press </span><span class="se">\&#39;</span><span class="s2">r&#39; to roll the dice</span><span class="se">\n</span><span class="s2">Press </span><span class="se">\&#39;</span><span class="s2">q&#39; to quit</span><span class="se">\n</span><span class="s2"> --&gt;&quot;</span><span class="p">)</span>
+
+    
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>---ROLL DICE---
+How many dice?
+--&gt;1
+How many rolls?
+--&gt;2
+How many sides?
+--&gt;6
+
+Press &#39;r&#39; to roll the dice
+Press &#39;q&#39; to quit
+ --&gt;r
+
+You rolled:
+----5----
+
+(1 rolls)
+
+Your rolls: [5]
+Press &#39;r&#39; to roll the dice --&gt;r
+
+You rolled:
+----5----
+
+(2 rolls)
+
+Your rolls: [5, 5]
+Press &#39;r&#39; to roll the dice --&gt;r
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refactored-(one-year-later)">Refactored (one year later)<a class="anchor-link" href="#Refactored-(one-year-later)">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">import</span> <span class="nn">smtplib</span>
-<span class="kn">import</span> <span class="nn">colorama</span>
-<span class="c1">#import pyfiglet</span>
-<span class="c1">#import termcolor</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-<span class="c1">#from progressbar import ProgressBar</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">get</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">relationship</span>
-<span class="kn">from</span> <span class="nn">email.message</span> <span class="kn">import</span> <span class="n">EmailMessage</span>
+<span class="kn">import</span> <span class="nn">click</span>
 
-<span class="n">colorama</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">RollDice</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">userNumDice</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">userSides</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">userRolls</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userNumDice</span> <span class="o">=</span> <span class="n">userNumDice</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userSides</span> <span class="o">=</span> <span class="n">userSides</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userRolls</span> <span class="o">=</span> <span class="n">userRolls</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rolled</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userList</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">user_inputs</span> <span class="o">=</span> <span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rolledNum</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">playAgain</span> <span class="o">=</span> <span class="kc">False</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
-<span class="k">class</span> <span class="nc">Posts</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;posts&quot;</span>
-
-    <span class="n">timing</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">title_text</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">price</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">DealScraper</span><span class="p">:</span>
-
-
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">urls</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">session</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">instance_filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">EMAIL_ADDRESS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">EMAIL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>\
-					<span class="n">instance_responses</span><span class="o">=</span><span class="p">(),</span><span class="n">instance_results</span><span class="o">=</span><span class="p">(),</span><span class="n">post_timing</span><span class="o">=</span><span class="p">[],</span><span class="n">post_title_texts</span><span class="o">=</span><span class="p">[],</span>\
-					<span class="n">post_prices</span><span class="o">=</span><span class="p">[],</span><span class="n">post_links</span><span class="o">=</span><span class="p">[],</span><span class="n">num_posts</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">new_results</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">False</span> 
-		<span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">instance_responses</span> <span class="o">=</span> <span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-	
-	<span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>	
-
-		<span class="k">try</span><span class="p">:</span>		
-			<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
-				<span class="n">response</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-				<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
-				<span class="n">posts</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-row&#39;</span><span class="p">)</span>
-
-				<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-					<span class="n">post_title</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-info&#39;</span><span class="p">)</span>
-					<span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-					<span class="n">region</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">post_link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;westernmass&#39;</span><span class="p">)</span>
-
-					<span class="k">if</span> <span class="n">region</span><span class="p">:</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">+=</span> <span class="mi">1</span>
-
-						<span class="n">post_title_text</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_text</span><span class="p">)</span>
-						
-						<span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_link</span><span class="p">)</span>
-						
-						<span class="n">post_price</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_price</span><span class="p">)</span>	
-						
-						<span class="n">post_datetime</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span> <span class="s1">&#39;result-date&#39;</span><span class="p">)[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_datetime</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>	
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">)</span>
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-
-	<span class="k">def</span> <span class="nf">db_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sqlite:////home/jrob/databases/</span><span class="si">{self.name}</span><span class="s1">.db&#39;</span><span class="p">)</span>  <span class="c1">#echo=True for output to console</span>
-			<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-			<span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem connecting to the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">db_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span> 
-		<span class="n">duplicates</span> <span class="o">=</span> <span class="mi">0</span>
-
-		<span class="k">try</span><span class="p">:</span>
-			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post_links</span><span class="p">)):</span>
-				<span class="k">try</span><span class="p">:</span>
-					<span class="n">post</span> <span class="o">=</span> <span class="n">Posts</span><span class="p">()</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">timing</span> <span class="o">=</span> <span class="n">post_timing</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">title_text</span> <span class="o">=</span> <span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-				<span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-					<span class="n">duplicates</span> <span class="o">+=</span> <span class="mi">1</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="n">num_posts</span> <span class="o">-</span> <span class="n">duplicates</span>	
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_results</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem updating the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">show_num_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_results</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">):</span>
-		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span>
-
-		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{self.new_results}</span><span class="s2"> New results</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-		<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_posts</span><span class="p">):</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result {result + 1}</span><span class="se">\n</span><span class="si">{post_title_texts[result]}</span><span class="se">\n</span><span class="si">{post_prices[result]}</span><span class="se">\n</span><span class="si">{post_links[result]}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-			<span class="n">sleep</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">db_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-	<span class="k">def</span> <span class="nf">create_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="n">date_time</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{date_time}</span><span class="s2">_</span><span class="si">{self.name}</span><span class="s2">.csv&quot;</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem creating a filename for your csv file!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-	<span class="k">def</span> <span class="nf">create_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_filename</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">):</span>
-		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating csv File...&quot;</span><span class="p">)</span>
-
-		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span> 
-
-		<span class="k">try</span><span class="p">:</span>
-			<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-				<span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-				<span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s1">&#39;Posted&#39;</span><span class="p">,</span><span class="s1">&#39;Post Title&#39;</span><span class="p">,</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span><span class="s1">&#39;URL&#39;</span><span class="p">])</span>
-				<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post_links</span><span class="p">))):</span>
-					<span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">post_timing</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-										<span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-										<span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-										<span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>    
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created </span><span class="si">{self.instance_filename}</span><span class="s2">&quot;</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem creating a csv file!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-	<span class="k">def</span> <span class="nf">get_cred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-		<span class="k">try</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_USER&#39;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">:</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for username and an email will not be sent!&quot;</span><span class="p">)</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*tip* try running &#39;source ~/.bash_profile&#39; command&quot;</span><span class="p">)</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GoodBye!&quot;</span><span class="p">)</span>
-				<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your username!</span><span class="se">\n\</span>
-<span class="s2">						*tip* try running &#39;source ~/.bash_profile&#39; command&quot;</span><span class="p">)</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_PASS&#39;</span><span class="p">)</span>
-			<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">:</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password and an email will not be sent!&quot;</span><span class="p">)</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*tip try running &#39;source ~/.bash_profile&#39; command&quot;</span><span class="p">)</span>
-				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GoodBye!&quot;</span><span class="p">)</span>
-				<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="se">\n\</span>
-<span class="s2">						*tip* try running &#39;source ~/.bash_profile&#39; command&quot;</span><span class="p">)</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span>
-
-
-	<span class="k">def</span> <span class="nf">send_mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">instance_filename</span><span class="p">):</span>
-		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preparing email...&quot;</span><span class="p">)</span>
-
-		<span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">()</span>
-		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self.name}</span><span class="s2">&quot;</span>
-		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
-		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
-		<span class="n">msg</span><span class="o">.</span><span class="n">set_content</span><span class="p">(</span><span class="s1">&#39;Csv attached...&#39;</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">get_user_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---ROLL DICE---&quot;</span><span class="p">)</span>
 		
-		<span class="k">try</span><span class="p">:</span>
-			<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-			    <span class="n">file</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-			<span class="n">msg</span><span class="o">.</span><span class="n">add_attachment</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">maintype</span><span class="o">=</span><span class="s1">&#39;application&#39;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;octet-stream&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">instance_filename</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem while adding a csv file to your email!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userNumDice</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;How many dice?&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userSides</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;How many sides?&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userRolls</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;How many rolls?&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">IntRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
 
-		<span class="k">try</span><span class="p">:</span>
-			<span class="k">with</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">,</span> <span class="mi">465</span><span class="p">)</span> <span class="k">as</span> <span class="n">smtp</span><span class="p">:</span>
-			    <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">)</span>
-			    <span class="n">smtp</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Email Sent&quot;</span><span class="p">)</span>	
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem while attempting to send your email!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">user_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userNumDice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">userSides</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">userRolls</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_inputs</span>
 
-	<span class="k">def</span> <span class="nf">delete_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_filename</span><span class="p">):</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">)</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem deleting the csv file after sending your email!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">user_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">valid_response</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shaking dice...&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">],</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userPrompt</span>
 
+	<span class="k">def</span> <span class="nf">roll_dice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_inputs</span><span class="p">):</span>
+		<span class="n">userNumDice</span><span class="p">,</span> <span class="n">userSides</span><span class="p">,</span> <span class="n">userRolls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_inputs</span>
+		<span class="n">roll_nums</span> <span class="o">=</span> <span class="p">[]</span> 
 
-<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;https://westernmass.craigslist.org/search/zip?hasPic=1&amp;postedToday=1&quot;</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">userNumDice</span><span class="p">):</span>  
+			<span class="bp">self</span><span class="o">.</span><span class="n">rolledNum</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">userSides</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">userList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rolledNum</span><span class="p">)</span>
+			<span class="n">roll_nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rolledNum</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rolled</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">results</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Roll </span><span class="si">{self.rolled}</span><span class="se">\n</span><span class="s2">You rolled:----</span><span class="si">{roll_nums}</span><span class="s2">----</span><span class="se">\</span>
+<span class="s2">					</span><span class="se">\n</span><span class="s2">({userRolls - self.rolled} rolls remain)</span><span class="se">\n</span><span class="s2">Your rolls: </span><span class="si">{self.userList}</span><span class="s2">&quot;</span>
+		<span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-	<span class="c1">#header = pyfiglet.figlet_format(&quot;DEAL\nSCRAPER&quot;, font=&#39;slant&#39;)</span>
-	<span class="c1">#text = termcolor.colored(header, color=&#39;yellow&#39;, attrs=[&#39;bold&#39;])</span>
-	<span class="c1">#print(text)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***DEAL SCRAPER***&quot;</span><span class="p">)</span>
-	<span class="c1">#bar = ProgressBar()</span>
-	<span class="c1">#for i in bar(range(50)):</span>
-		<span class="c1">#sleep(0.02)</span>
-
-
-	<span class="n">find_freestuff</span> <span class="o">=</span> <span class="n">DealScraper</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="s2">&quot;free-stuff&quot;</span><span class="p">)</span>
-
-	<span class="n">find_freestuff</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-	<span class="n">find_freestuff</span><span class="o">.</span><span class="n">db_connect</span><span class="p">()</span>
-	<span class="n">find_freestuff</span><span class="o">.</span><span class="n">db_update</span><span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_results</span><span class="p">,</span> <span class="n">find_freestuff</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-	<span class="n">find_freestuff</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-	<span class="n">find_freestuff</span><span class="o">.</span><span class="n">show_num_results</span><span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">new_results</span><span class="p">,</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_results</span><span class="p">)</span>
-	<span class="n">EMAIL_ADDRESS</span><span class="p">,</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">get_cred</span><span class="p">())</span>
-	<span class="n">confirm_email</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Send Email to </span><span class="si">{EMAIL_ADDRESS}</span><span class="s2"> with these results? y/n: &quot;</span><span class="p">)</span>
-	<span class="n">condition_not_met</span> <span class="o">=</span> <span class="kc">True</span>
-	<span class="k">while</span> <span class="n">condition_not_met</span><span class="p">:</span>
-		<span class="k">if</span> <span class="n">confirm_email</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
-			<span class="k">try</span><span class="p">:</span>
-
-				<span class="n">find_freestuff</span><span class="o">.</span><span class="n">create_filename</span><span class="p">()</span>
-				<span class="n">find_freestuff</span><span class="o">.</span><span class="n">create_csv</span><span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">,</span> <span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_results</span><span class="p">)</span>
-				<span class="n">find_freestuff</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span><span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">)</span>
-				<span class="n">find_freestuff</span><span class="o">.</span><span class="n">delete_csv</span><span class="p">(</span><span class="n">find_freestuff</span><span class="o">.</span><span class="n">instance_filename</span><span class="p">)</span>
-				<span class="n">condition_not_met</span> <span class="o">=</span> <span class="kc">False</span>
-			<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-				<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There was an error!</span><span class="se">\n</span><span class="s2">---&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-		<span class="k">elif</span> <span class="n">confirm_email</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No email sent&quot;</span><span class="p">)</span>
-			<span class="n">condition_not_met</span> <span class="o">=</span> <span class="kc">False</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">confirm_email</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Send Email to </span><span class="si">{EMAIL_ADDRESS}</span><span class="s2"> with these results? y/n: </span><span class="se">\n</span><span class="s2">*** Please enter &#39;y&#39; or &#39;n&#39; ***: &quot;</span><span class="p">)</span>
-
-	<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-	<span class="n">main</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>***DEAL SCRAPER***
-
-0 New results
-
-Result 1
-INK Cartidges
-$0
-https://westernmass.craigslist.org/zip/d/south-hadley-ink-cartidges/7109852474.html
-
-Result 2
-picnic table wooden 6ft
-$0
-https://westernmass.craigslist.org/zip/d/northampton-picnic-table-wooden-6ft/7109835115.html
-
-Result 3
-rocking chair needs a new home
-$0
-https://westernmass.craigslist.org/zip/d/springfield-rocking-chair-needs-new-home/7109821312.html
-
-Result 4
-JVC Turntable
-$0
-https://westernmass.craigslist.org/zip/d/granby-jvc-turntable/7109769660.html
-
-Result 5
-Free boxes
-$0
-https://westernmass.craigslist.org/zip/d/ludlow-free-boxes/7109749366.html
-
-Result 6
-Pallets pallets pallets
-$0
-https://westernmass.craigslist.org/zip/d/hadley-pallets-pallets-pallets/7109717390.html
-
-Result 7
-Haywood Wakefield full-size bed
-$0
-https://westernmass.craigslist.org/zip/d/springfield-haywood-wakefield-full-size/7109711200.html
-
-Result 8
-Pendant lights
-$0
-https://westernmass.craigslist.org/zip/d/dearing-pendant-lights/7109672175.html
-
-Result 9
-Free Trailer
-$0
-https://westernmass.craigslist.org/zip/d/wilbraham-free-trailer/7109636721.html
-
-Result 10
-More FREE Items - sewing machine, tools, auto, kitchen &amp; more
-$0
-https://westernmass.craigslist.org/zip/d/winchester-more-free-items-sewing/7109616498.html
-
-Result 11
-organ
-$0
-https://westernmass.craigslist.org/zip/d/springfield-organ/7109615530.html
-
-Result 12
-high pressure water pump
-$0
-https://westernmass.craigslist.org/zip/d/granby-high-pressure-water-pump/7109596291.html
-
-Result 13
-high pressure water hose with clamps
-$0
-https://westernmass.craigslist.org/zip/d/granby-high-pressure-water-hose-with/7109590278.html
-
-Result 14
-Clothes, DVDs, kitchen stuff, bluetooth speaker, and more
-$0
-https://westernmass.craigslist.org/zip/d/holyoke-clothes-dvds-kitchen-stuff/7109457628.html
-
-Result 15
-CharBroil Gas Grill
-$0
-https://westernmass.craigslist.org/zip/d/hudson-charbroil-gas-grill/7109342976.html
-
-
-Send Email to blazeini2k@gmail.com with these results? y/n: y
-Creating csv File...
-Created 2020-04-17 18:39:49_free-stuff.csv
-Preparing email...
-Email Sent
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-An exception has occurred, use %tb to see the full traceback.
-
-<span class="ansi-red-fg">SystemExit</span>
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/jrob/.local/lib/python3.7/site-packages/IPython/core/interactiveshell.py:3327: UserWarning: To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.
-  warn(&#34;To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.&#34;, stacklevel=1)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Minimal-App">Minimal App<a class="anchor-link" href="#Minimal-App">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">get</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span>
-
-<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
-<span class="k">class</span> <span class="nc">Posts</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;posts&quot;</span>
-
-    <span class="n">timing</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">title_text</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">price</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">link</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    	<span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Posts(&#39;</span><span class="si">{self.timing}</span><span class="se">\n</span><span class="si">{self.title_text}</span><span class="se">\n</span><span class="si">{self.price}</span><span class="se">\n</span><span class="si">{self.link}</span><span class="se">\n</span><span class="s2">&#39;)&quot;</span>
-
-<span class="k">class</span> <span class="nc">DealScraper</span><span class="p">:</span>
-
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">urls</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">False</span> 
-		<span class="bp">self</span><span class="o">.</span><span class="n">instance_responses</span> <span class="o">=</span> <span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">true_results</span> <span class="o">=</span> <span class="mi">0</span>
 	
-	<span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>	
-
-		<span class="k">try</span><span class="p">:</span>		
-			<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
-				<span class="n">response</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-				<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
-				<span class="n">posts</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-row&#39;</span><span class="p">)</span>
-
-				<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-					<span class="n">post_title</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-info&#39;</span><span class="p">)</span>
-					<span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-					<span class="n">region</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">post_link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;westernmass&#39;</span><span class="p">)</span>
-
-					<span class="k">if</span> <span class="n">region</span><span class="p">:</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">+=</span> <span class="mi">1</span>
-
-						<span class="n">post_title_text</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_text</span><span class="p">)</span>
-						
-						<span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_link</span><span class="p">)</span>
-						
-						<span class="n">post_price</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_price</span><span class="p">)</span>	
-						
-						<span class="n">post_datetime</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span> <span class="s1">&#39;result-date&#39;</span><span class="p">)[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span>
-						<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_datetime</span><span class="p">)</span>
-						
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>	
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">:</span>
-			<span class="c1">#print(f&quot;{self.num_posts} results found&quot;)</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">)</span>
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span>
+	<span class="k">def</span> <span class="nf">play_again</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">keep_on_playing</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Play again?&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="p">],</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+		<span class="k">if</span> <span class="n">keep_on_playing</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">playAgain</span> <span class="o">=</span> <span class="kc">True</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">playAgain</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">playAgain</span>
+			
+	<span class="k">def</span> <span class="nf">quit_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thanks for Playing!&quot;</span><span class="p">)</span>
 
-
-	<span class="k">def</span> <span class="nf">db_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sqlite:////home/jrob/databases/</span><span class="si">{self.name}</span><span class="s1">.db&#39;</span><span class="p">)</span> <span class="c1">#echo=True for output to console</span>
-			<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-			<span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem connecting to the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">db_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span> 
-		<span class="n">duplicates</span> <span class="o">=</span> <span class="mi">0</span>
-
-		<span class="k">try</span><span class="p">:</span>
-			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post_links</span><span class="p">)):</span>
-				<span class="k">try</span><span class="p">:</span>
-					<span class="n">post</span> <span class="o">=</span> <span class="n">Posts</span><span class="p">()</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">timing</span> <span class="o">=</span> <span class="n">post_timing</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">title_text</span> <span class="o">=</span> <span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">post</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-				<span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-					<span class="n">duplicates</span> <span class="o">+=</span> <span class="mi">1</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">true_results</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_posts</span> <span class="o">-</span> <span class="n">duplicates</span><span class="p">)</span>
-			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_results</span>
-		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem updating the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">show_num_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_results</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">):</span>
-		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span>
-
-		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self.true_results}</span><span class="s2"> New results&quot;</span><span class="p">)</span>
-		<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_posts</span><span class="p">):</span>
-			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result {result + 1}</span><span class="se">\n</span><span class="si">{post_title_texts[result]}</span><span class="se">\n</span><span class="si">{post_prices[result]}</span><span class="se">\n</span><span class="si">{post_links[result]}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-	<span class="k">def</span> <span class="nf">db_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-
-<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;https://westernmass.craigslist.org/search/zip?hasPic=1&amp;postedToday=1&quot;</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-	<span class="n">find_free_stuff</span> <span class="o">=</span> <span class="n">DealScraper</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="s2">&quot;free-stuff&quot;</span><span class="p">)</span>
-	<span class="n">find_free_stuff</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-	<span class="n">find_free_stuff</span><span class="o">.</span><span class="n">db_connect</span><span class="p">()</span>
-	<span class="n">find_free_stuff</span><span class="o">.</span><span class="n">db_update</span><span class="p">(</span><span class="n">find_free_stuff</span><span class="o">.</span><span class="n">instance_results</span><span class="p">,</span> <span class="n">find_free_stuff</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-	<span class="n">find_free_stuff</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">find_free_stuff</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-	<span class="n">find_free_stuff</span><span class="o">.</span><span class="n">show_num_results</span><span class="p">(</span><span class="n">find_free_stuff</span><span class="o">.</span><span class="n">true_results</span><span class="p">,</span><span class="n">find_free_stuff</span><span class="o">.</span><span class="n">instance_results</span><span class="p">)</span>
-	<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+	<span class="n">rolled</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">user1</span> <span class="o">=</span> <span class="n">RollDice</span><span class="p">()</span>
+	<span class="n">user1</span><span class="o">.</span><span class="n">get_user_inputs</span><span class="p">()</span>
+	<span class="k">while</span> <span class="n">rolled</span> <span class="o">&lt;</span> <span class="n">user1</span><span class="o">.</span><span class="n">userRolls</span><span class="p">:</span>
+		<span class="n">user1</span><span class="o">.</span><span class="n">user_prompt</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">user1</span><span class="o">.</span><span class="n">userPrompt</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
+			<span class="n">user1</span><span class="o">.</span><span class="n">roll_dice</span><span class="p">(</span><span class="n">user1</span><span class="o">.</span><span class="n">user_inputs</span><span class="p">)</span>
+			<span class="n">rolled</span> <span class="o">+=</span> <span class="mi">1</span>
+		
+		<span class="k">elif</span> <span class="n">user1</span><span class="o">.</span><span class="n">userPrompt</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+			<span class="n">user1</span><span class="o">.</span><span class="n">quit_game</span><span class="p">()</span>
+			<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+	<span class="n">user1</span><span class="o">.</span><span class="n">play_again</span><span class="p">()</span>
+	<span class="k">if</span> <span class="n">user1</span><span class="o">.</span><span class="n">playAgain</span><span class="p">:</span>
+		<span class="n">main</span><span class="p">()</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">user1</span><span class="o">.</span><span class="n">quit_game</span><span class="p">()</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 	<span class="n">main</span><span class="p">()</span>
+       
 </pre></div>
 
     </div>
@@ -16926,181 +16584,38 @@ An exception has occurred, use %tb to see the full traceback.
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0 New results
-Result 1
-INK Cartidges
-$0
-https://westernmass.craigslist.org/zip/d/south-hadley-ink-cartidges/7109852474.html
+<pre>---ROLL DICE---
+How many dice?: 1
+How many sides?: 6
+How many rolls?: 3
 
-Result 2
-rocking chair needs a new home
-$0
-https://westernmass.craigslist.org/zip/d/springfield-rocking-chair-needs-new-home/7109821312.html
+Shaking dice... (r, q): r
 
-Result 3
-JVC Turntable
-$0
-https://westernmass.craigslist.org/zip/d/granby-jvc-turntable/7109769660.html
+Roll 1
+You rolled:----[4]----					
+(2 rolls remain)
+Your rolls: [4]
 
-Result 4
-Free boxes
-$0
-https://westernmass.craigslist.org/zip/d/ludlow-free-boxes/7109749366.html
+Shaking dice... (r, q): r
 
-Result 5
-Pallets pallets pallets
-$0
-https://westernmass.craigslist.org/zip/d/hadley-pallets-pallets-pallets/7109717390.html
+Roll 2
+You rolled:----[5]----					
+(1 rolls remain)
+Your rolls: [4, 5]
 
-Result 6
-Haywood Wakefield full-size bed
-$0
-https://westernmass.craigslist.org/zip/d/springfield-haywood-wakefield-full-size/7109711200.html
+Shaking dice... (r, q): r
 
-Result 7
-Pendant lights
-$0
-https://westernmass.craigslist.org/zip/d/dearing-pendant-lights/7109672175.html
+Roll 3
+You rolled:----[2]----					
+(0 rolls remain)
+Your rolls: [4, 5, 2]
 
-Result 8
-Free Trailer
-$0
-https://westernmass.craigslist.org/zip/d/wilbraham-free-trailer/7109636721.html
-
-Result 9
-More FREE Items - sewing machine, tools, auto, kitchen &amp; more
-$0
-https://westernmass.craigslist.org/zip/d/winchester-more-free-items-sewing/7109616498.html
-
-Result 10
-organ
-$0
-https://westernmass.craigslist.org/zip/d/springfield-organ/7109615530.html
-
-Result 11
-high pressure water pump
-$0
-https://westernmass.craigslist.org/zip/d/granby-high-pressure-water-pump/7109596291.html
-
-Result 12
-high pressure water hose with clamps
-$0
-https://westernmass.craigslist.org/zip/d/granby-high-pressure-water-hose-with/7109590278.html
-
-Result 13
-Clothes, DVDs, kitchen stuff, bluetooth speaker, and more
-$0
-https://westernmass.craigslist.org/zip/d/holyoke-clothes-dvds-kitchen-stuff/7109457628.html
-
-Result 14
-CharBroil Gas Grill
-$0
-https://westernmass.craigslist.org/zip/d/hudson-charbroil-gas-grill/7109342976.html
-
+Play again? (y, n): n
+Thanks for Playing!
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-An exception has occurred, use %tb to see the full traceback.
-
-<span class="ansi-red-fg">SystemExit</span>
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Shell-script">Shell script<a class="anchor-link" href="#Shell-script">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-<pre><code>#!bin/bash
-
-export EMAIL_USER='****'
-export EMAIL_PASS='****'
-
-/home/jrob/envs/master_cronenv/bin/python3 /home/jrob/dealscrapers/freestuff/freestuff.py </code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
 
