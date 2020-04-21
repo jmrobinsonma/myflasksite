@@ -27,7 +27,11 @@ pipeline {
         stage('Deploy') {
             steps {
 
-                sh 'git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
+                sh  """
+                apt update && apt install -y unzip git &&\
+                git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+                """
             }
         }
     }
