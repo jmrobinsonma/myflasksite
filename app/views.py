@@ -17,3 +17,7 @@ def freestuff_app_book():
 @app.route('/dicebook')
 def dicebook():
 	return render_template('dicebook.html')
+
+@app.route('/apibook')
+def apibook():
+    return render_template('apibook.html')
