@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Push Docker') {
             steps {
-                sh  "docker push jmrobinson/myflasksite"
+                sh 'docker push jmrobinson/myflasksite'
                 }
             }
         }
