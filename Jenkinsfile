@@ -7,9 +7,6 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            when {
-                triggeredBy 'SCMTrigger'
-            }
             steps {
                 checkout scm
             }
@@ -24,14 +21,6 @@ pipeline {
             steps {
 
                 sh  "docker push jmrobinson/myflasksite"
-            }
-        }
-        stage('Archive') {
-            post {
-                always {
-                    archiveArtifacts artifacts: 'Dockerfile', fingerprint: true
-                    }
-                }
             }
         }
     }
