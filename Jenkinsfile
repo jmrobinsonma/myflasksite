@@ -23,10 +23,5 @@ pipeline {
                 sh  "docker push jmrobinson/myflasksite"
                 }
             }
-            post {
-                success {
-                    archiveArtifacts "Dockerfile"
-                }
-            }
         }
     }
