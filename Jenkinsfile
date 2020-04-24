@@ -2,6 +2,9 @@ pipeline {
     agent {
         dockerfile { filename 'Dockerfile'}
     }
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Checkout') {
             when {
@@ -18,19 +21,28 @@ pipeline {
             }
         }
         stage('Push Docker') {
-            options {
-                skipStagesAfterUnstable()
-            }
             steps {
 
                 sh  "docker push jmrobinson/myflasksite"
             }
         }
-        post {
-            always {
-                archiveArtifacts artifacts: 'Dockerfile', fingerprint: true
+        stage('Archive') {
+            post {
+                always {
+                    archiveArtifacts artifacts: 'Dockerfile', fingerprint: true
+                    }
                 }
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
 
