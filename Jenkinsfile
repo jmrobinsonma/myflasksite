@@ -4,18 +4,11 @@ pipeline {
     }
     stages {
         stage('Checkout') {
+            when {
+                triggeredBy 'SCMTrigger'
+            }
             steps {
                 checkout scm
-            }
-        }
-        stage('Setup') {
-            steps {
-
-                sh """
-                python3 -m venv venv &&\
-                . venv/bin/activate &&\
-                pip install -r requirements.txt
-                """
             }
         }
         stage('Test') {
@@ -24,14 +17,19 @@ pipeline {
                 sh 'python3 test.py'
             }
         }
-        stage('Deploy') {
+        stage('Push Docker') {
+            options {
+                skipStagesAfterUnstable()
+            }
             steps {
 
-                sh  """
-                apt update && apt install -y unzip git &&\
-                git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-
-                """
+                sh  "docker push jmrobinson/myflasksite"
+            }
+        }
+        post {
+            always {
+                archiveArtifacts artifacts: 'Dockerfile', fingerprint: true
+                }
             }
         }
     }
