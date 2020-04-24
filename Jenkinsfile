@@ -1,6 +1,7 @@
 pipeline {
     agent {
-        dockerfile { filename 'Dockerfile'}
+        dockerfile { filename 'Dockerfile'
+        }
     }
     options {
         skipStagesAfterUnstable()
@@ -19,11 +20,16 @@ pipeline {
         }
         stage('Push Docker') {
             steps {
-
                 sh  "docker push jmrobinson/myflasksite"
+                }
+            }
+        post {
+            success {
+                archiveArtifacts "Dockerfile"
             }
         }
     }
+
 
 
 
