@@ -1,26 +1,28 @@
 pipeline {
-agent any
-options {
-skipStagesAfterUnstable()
+    agent none
+    options {
+        skipStagesAfterUnstable()
 }
-stages {
-}
-stage('Test') {
-agent {
-dockerfile {
-filename 'testing.Dockerfile'
-}
-}
-stage('Deliver') {
-agent {
-dockerfile {
-filename 'Dockerfile'
+    stages {
+        stage('Test') {
+            agent {
+                dockerfile {
+                    filename 'testing.Dockerfile'
 }
 }
-steps {
-sh "docker push jmrobinson/myflasksite"
+            steps {
+                sh "which python3"
+}
+}
+        stage('Deliver') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+}
+}
+            steps {
+                sh "docker push jmrobinson/myflasksite"
 }
 }
 }
 }
-
