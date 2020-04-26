@@ -4,11 +4,11 @@ options {
 skipStagesAfterUnstable()
 }
 stages {
+}
 stage('Test') {
 agent {
 dockerfile {
 filename 'testing.Dockerfile'
-}
 }
 }
 stage('Deliver') {
