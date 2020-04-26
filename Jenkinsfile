@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+
+}
     agent none
     options {
         skipStagesAfterUnstable()
@@ -21,7 +24,8 @@ pipeline {
 }
 }
             steps {
-                sh "docker push jmrobinson/myflasksite"
+                docker.withRegistry('','dockerhub')
+                    sh "docker push jmrobinson/myflasksite"
 }
 }
 }
