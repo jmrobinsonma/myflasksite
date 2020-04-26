@@ -6,9 +6,7 @@ pipeline {
     stages {
         stage('Test') {
             agent {
-                dockerfile {
-                    'testing.Dockerfile'
-                }
+                dockerfile:'testing.Dockerfile'
             }
             post {
                 always {
@@ -18,9 +16,7 @@ pipeline {
         }
         stage('Deliver') {
             agent {
-                dockerfile {
-                    'Dockerfile'
-                }
+                dockerfile: 'Dockerfile'
             }
             steps {
                 dir(path: env.BUILD_ID) {
