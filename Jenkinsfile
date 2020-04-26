@@ -1,36 +1,26 @@
 pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
-        }
+agent any
+options {
+skipStagesAfterUnstable()
+}
 stages {
-    stage('Test') {
-        agent {
-            dockerfile {
-                filename 'testing.Dockerfile'
-                }
-                }
-        post {
-            always {
-                archiveArtifacts "testing.Dockerfile"
-                }
-                }
-                }
-    stage('Deliver') {
-        agent {
-            dockerfile {
-                filename 'Dockerfile'
-                }
-                }
-        steps {
-            sh "docker push jmrobinson/myflasksite"
-                }
-                }
-        post {
-            success {
-                archiveArtifacts "Dockerfile"
-                }
-                }
-                }
-                }
+stage('Test') {
+agent {
+dockerfile {
+filename 'testing.Dockerfile'
+}
+}
+}
+stage('Deliver') {
+agent {
+dockerfile {
+filename 'Dockerfile'
+}
+}
+steps {
+sh "docker push jmrobinson/myflasksite"
+}
+}
+}
+}
 
