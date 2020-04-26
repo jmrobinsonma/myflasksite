@@ -5,8 +5,8 @@ pipeline {
     }
     stages {
         stage('Test') {
-            agent {
-                dockerfile:'testing.Dockerfile'
+            agent dockerfile {
+                'testing.Dockerfile'
             }
             post {
                 always {
