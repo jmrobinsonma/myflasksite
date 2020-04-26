@@ -22,6 +22,7 @@ pipeline {
             steps {
                 sh 'docker push jmrobinson/myflasksite'
                 }
+            post
             }
         }
     }
