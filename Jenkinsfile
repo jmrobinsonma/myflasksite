@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "jmrobinsn/myflasksite"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
     agent none
     options {
         skipStagesAfterUnstable()
@@ -22,8 +27,9 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('unix:///var/run/docker.sock','dockerhub')
-                        sh "docker push jmrobinson/myflasksite"
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
