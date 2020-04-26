@@ -21,8 +21,10 @@ pipeline {
 }
 }
             steps {
-                docker.withRegistry('','dockerhub')
-                    sh "docker push jmrobinson/myflasksite"
+                script {
+                    docker.withRegistry('','dockerhub')
+                        sh "docker push jmrobinson/myflasksite"
+}
 }
 }
 }
