@@ -1,7 +1,4 @@
 pipeline {
-    environment {
-
-}
     agent none
     options {
         skipStagesAfterUnstable()
