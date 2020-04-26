@@ -1,28 +1,39 @@
 pipeline {
-    agent {
-        dockerfile { filename 'Dockerfile'
-        }
-    }
+    agent none
     options {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Test') {
-            steps {
-
-                sh 'python3 test.py'
+            agent {
+                dockerfile {
+                    'testing.Dockerfile'
+                }
+            }
+            post {
+                always {
+                    junit 'test-reports/results.xml'
+                }
             }
         }
-        stage('Push Docker') {
-            steps {
-                sh 'docker push jmrobinson/myflasksite'
+        stage('Deliver') {
+            agent {
+                dockerfile {
+                    'Dockerfile'
                 }
-            post
+            }
+            steps {
+                dir(path: env.BUILD_ID) {
+                    unstash(name: 'compiled-results')
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                }
+            }
+            post {
+                success {
+                    archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
+                }
             }
         }
     }
+}
