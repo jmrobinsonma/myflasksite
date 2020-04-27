@@ -25,6 +25,7 @@ pipeline {
                     filename 'Dockerfile'
                 }
             }
+
             steps {
                 script {
                     docker.withRegistry('', registryCredential) {
