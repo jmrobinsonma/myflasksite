@@ -1,6 +1,8 @@
 FROM jmrobinson/myflasksite:latest
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+RUN mkdir /myapp
+VOLUME /myapp
+WORKDIR /myapp
+COPY . /myapp
 RUN apt update && apt install -y python3-virtualenv
 RUN python3 -m venv venv
 RUN pip install -r requirements.txt
