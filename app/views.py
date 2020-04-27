@@ -18,6 +18,10 @@ def freestuff_app_book():
 def dicebook():
 	return render_template('dicebook.html')
 
+#@app.route('/last_ten')
+#def last_ten():
+#    return "https://localhost:5009/last_ten"
+
 @app.route('/apibook')
 def apibook():
     return render_template('apibook.html')
