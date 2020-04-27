@@ -4,7 +4,7 @@ from app import app
 @app.route('/')
 @app.route('/home')
 def home():
-	return render_template('index.html')
+	return render_template('home.html')
 
 @app.route('/myscrapbook')
 def myscrapbook():
@@ -21,3 +21,5 @@ def dicebook():
 @app.route('/apibook')
 def apibook():
     return render_template('apibook.html')
+
+
