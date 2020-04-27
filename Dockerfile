@@ -1,6 +1,4 @@
 FROM jmrobinson/myflasksite:latest
-RUN mkdir /myapp
-VOLUME /myapp
 WORKDIR /myapp
 COPY . /myapp
 RUN apt update && apt install -y python3-virtualenv
