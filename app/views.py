@@ -1,3 +1,5 @@
+import requests
+import json
 from flask import render_template,url_for
 from app import app
 
@@ -22,4 +24,8 @@ def dicebook():
 def apibook():
     return render_template('apibook.html')
 
+@app.route('/lasttenresults')
+def lasttenresults():
+    results = requests.get('http://localhost:5001/last-ten')
+    return render_template('lasttenresults.html', results=json.loads(results.text))
 

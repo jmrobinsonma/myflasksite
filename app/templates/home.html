@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 {% block content %}
       <!-- Project One Row -->
       <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
@@ -8,12 +8,12 @@
         <div class="col-lg-6">
           <div class="bg-black text-center h-100 project">
             <div class="d-flex h-100">
-              <div class="project-text w-100 my-auto text-center text-lg-left">
+              <div class="project-text w-100 my-auto text-center">
                 <a class="nav-link js-scroll-trigger" href="{{ url_for('freestuff_app_book') }}">
                 <h4 class="text-white">DealScraper</h4>
                 </a>
                 <p class="mb-0 text-white-50">Makes finding deals easy</p>
-                <a href="http://localhost:5009/last_ten">
+                <a href="{{ url_for('lasttenresults') }}">
                 <p class="mb-0 text-white-50">See the last ten results now!</p>
                 </a>
                 <hr class="d-none d-lg-block mb-0 ml-0">
@@ -32,7 +32,7 @@
         <div class="col-lg-6 order-lg-first">
           <div class="bg-black text-center h-100 project">
             <div class="d-flex h-100">
-              <div class="project-text w-100 my-auto text-center text-lg-right">
+              <div class="project-text w-100 my-auto text-center">
                 <a class="nav-link js-scroll-trigger" href="{{ url_for('dicebook') }}">
                 <h4 class="text-white">Roll Dice</h4>
                 </a>
@@ -54,7 +54,7 @@
         <div class="col-lg-6">
           <div class="bg-black text-center h-100 project">
             <div class="d-flex h-100">
-              <div class="project-text w-100 my-auto text-center text-lg-left">
+              <div class="project-text w-100 my-auto text-center">
                 <a class="nav-link js-scroll-trigger" href="{{ url_for('apibook') }}">
                 <h4 class="text-white">ApiBook</h4>
                 </a>
