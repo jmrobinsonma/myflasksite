@@ -4,7 +4,7 @@ pipeline {
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
-    agent none
+    agent any
     options {
         skipStagesAfterUnstable()
     }
@@ -34,5 +34,53 @@ pipeline {
                 }
             }
         }
+    }
+}
+
+
+#####################################################################################
+                        PARAMETERS
+
+agent any
+parameters {
+    choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+    booleanParam(name: 'executeTests', defaultValue: true, description: '')
+}
+
+stages {
+    stage() {
+        when {
+            expression {
+                params.executeTests
+            }
+        }
+        steps {
+            echo "testing ${VERSION}"
+        }
+    }
+}
+
+###################################################################################
+                        CREDENTIALS
+
+agent any
+    environment {
+        SERVER_CREDENTIALS = credentials('dockerhub-creds')
+    }
+stages {
+    stage {
+        step {
+            echo "deploy with ${SERVER_CREDENTIALS}"
+        }
+    }
+}
+
+
+
+steps {
+    withCredentials([
+        usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PASS)
+    ]) {
+        sh "deploy with ${USER} ${PASS}"
     }
 }
