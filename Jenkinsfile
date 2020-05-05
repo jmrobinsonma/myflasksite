@@ -21,11 +21,6 @@ pipeline {
                 }
             }
             steps {
-                withCredentials([
-                    usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PASS)
-                ]) {
-                    sh "docker login -u ${USER} -p ${PASS}"
-                }
                 sh "docker push jmrobinson/site-testpipe"
             }
         }
