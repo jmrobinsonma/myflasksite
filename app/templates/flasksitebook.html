@@ -16872,48 +16872,38 @@ CMD ["flask", "run", "--host=0.0.0.0"]</code></pre>
 <h2 id="layout.html">layout.html<a class="anchor-link" href="#layout.html">&#182;</a></h2>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>lasttenresults.html</p>
+</div>lasttenresults.html
 
-<pre><code>{% extends "layout.html" %}
-{% block content %}
-    &lt;div&gt;
-        {% for result in results %}
-            &lt;div class="row justify-content-center no-gutters mb-5 mb-lg-0"&gt;
-              &lt;div class="col-lg-12"&gt;
-                &lt;div class="bg-black text-center h-100 project"&gt;
-                  &lt;div class="d-flex h-100"&gt;
-                    &lt;div class="project-text w-100 my-auto text-center"&gt;
-                      &lt;h4 class="text-white"&lt;/h4&gt;
-                      &lt;p class="mb-0 text-white-50"&gt;&lt;a href="{{ result["link"] }}"&gt;{{ result["title_text"] }}&lt;/a&gt;&lt;/p&gt;
-                      &lt;p class="mb-0 text-white-50"&gt;&lt;/p&gt;
-                      &lt;hr class="d-none d-lg-block mb-0 ml-0"&gt;
-                    &lt;/div&gt;
-                  &lt;/div&gt;
-                &lt;/div&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-        {% endfor %}
-    &lt;/div&gt;
-{% endblock content %}</code></pre>
+    {% extends "layout.html" %}
+    {% block content %}
+        <div>
+            {% for result in results %}
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                  <div class="col-lg-12">
+                    <div class="bg-black text-center h-100 project">
+                      <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center">
+                          <h4 class="text-white"</h4>
+                          <p class="mb-0 text-white-50"><a href="{{ result["link"] }}">{{ result["title_text"] }}</a></p>
+                          <p class="mb-0 text-white-50"></p>
+                          <hr class="d-none d-lg-block mb-0 ml-0">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock content %}
+        
 
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="home.html">home.html<a class="anchor-link" href="#home.html">&#182;</a></h2>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-  <!--
+</div>  <!--
   {% extends "layout.html" %}
   {% block content %}
         <!-- Project One Row -->
@@ -16941,55 +16931,50 @@ CMD ["flask", "run", "--host=0.0.0.0"]</code></pre>
 
         <!-- Project Two Row -->
 
-
-<pre><code>    &lt;div class="row justify-content-center no-gutters"&gt;
-      &lt;div class="col-lg-6"&gt;
-        &lt;img class="img-fluid" src="/static/img/tropical_beach_paradise.jpg" alt=""&gt;
-      &lt;/div&gt;
-      &lt;div class="col-lg-6 order-lg-first"&gt;
-        &lt;div class="bg-black text-center h-100 project"&gt;
-          &lt;div class="d-flex h-100"&gt;
-            &lt;div class="project-text w-100 my-auto text-center"&gt;
-              &lt;a class="nav-link js-scroll-trigger" href="{{ url_for('dicebook') }}"&gt;
-              &lt;h4 class="text-white"&gt;Roll Dice&lt;/h4&gt;
-              &lt;/a&gt;
-              &lt;p class="mb-0 text-white-50"&gt;Custom dice simulator&lt;/p&gt;
-              &lt;!--
-              &lt;p class="mb-0 text-white-50"&gt;Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!&lt;/p&gt;
-              --&gt;
-              &lt;hr class="d-none d-lg-block mb-0 mr-0"&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;!-- Project Three Row --&gt;
-    &lt;div class="row justify-content-center no-gutters"&gt;
-      &lt;div class="col-lg-6"&gt;
-        &lt;img class="img-fluid" src="/static/img/summer_tropical_beach_paradise.jpg" alt=""&gt;
-      &lt;/div&gt;
-      &lt;div class="col-lg-6"&gt;
-        &lt;div class="bg-black text-center h-100 project"&gt;
-          &lt;div class="d-flex h-100"&gt;
-            &lt;div class="project-text w-100 my-auto text-center"&gt;
-              &lt;a class="nav-link js-scroll-trigger" href="{{ url_for('apibook') }}"&gt;
-              &lt;h4 class="text-white"&gt;ApiBook&lt;/h4&gt;
-              &lt;/a&gt;
-              &lt;p class="mb-0 text-white-50"&gt;Learning about api's&lt;/p&gt;
-              &lt;hr class="d-none d-lg-block mb-0 ml-0"&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/section&gt;
-</code></pre>
-<p>{% endblock content %}</p>
-
-</div>
-</div>
-</div>
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/img/tropical_beach_paradise.jpg" alt="">
+          </div>
+          <div class="col-lg-6 order-lg-first">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center">
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('dicebook') }}">
+                  <h4 class="text-white">Roll Dice</h4>
+                  </a>
+                  <p class="mb-0 text-white-50">Custom dice simulator</p>
+                  <!--
+                  <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                  -->
+                  <hr class="d-none d-lg-block mb-0 mr-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Three Row -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/img/summer_tropical_beach_paradise.jpg" alt="">
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center">
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('apibook') }}">
+                  <h4 class="text-white">ApiBook</h4>
+                  </a>
+                  <p class="mb-0 text-white-50">Learning about api's</p>
+                  <hr class="d-none d-lg-block mb-0 ml-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endblock content %}
+    
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
