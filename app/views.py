@@ -24,6 +24,10 @@ def dicebook():
 def apibook():
     return render_template('apibook.html')
 
+@app.route('/flasksitebook')
+def flasksitebook():
+    return render_template('flasksitebook.html')
+
 @app.route('/lasttenresults')
 def lasttenresults():
     results = requests.get('http://localhost:5001/last-ten')
