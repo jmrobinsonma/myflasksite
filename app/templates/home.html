@@ -1,92 +1,87 @@
-{% extends "layout.html" %}
-{% block content %}
-      <!-- Project One Row -->
-      <div class="row justify-content-center no-gutters">
-        <div class="col-lg-6">
-          <img class="img-fluid" src="/static/img/brooke-cagle-_6cz9KUvnxM-unsplash.jpg" alt="">
+  {% extends "layout.html" %}
+  {% block content %}
+        <!-- Project One Row -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/img/silver-and-gold-coins-128867.jpg" alt="">
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100 justify-content-center">
+                <div class="project-text w-100% my-auto text-center">
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('freestuff_app_book') }}">
+                  <h4 class="text-white">DealScraper</h4>
+                  </a>
+                  <p class="mb-0 text-white-50">Deals find me</p>
+                  <a href="{{ url_for('lasttenresults') }}">
+                  <p class="mb-0 text-white-50">See the last ten results now!</p>
+                  </a>
+                  <hr class="d-none d-lg-block mb-0 ml-0">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-6">
-          <div class="bg-black text-center h-100 project">
-            <div class="d-flex h-100 justify-content-center">
-              <div class="project-text w-100% my-auto text-center">
-                <a class="nav-link js-scroll-trigger" href="{{ url_for('freestuff_app_book') }}">
-                <h4 class="text-white">DealScraper</h4>
-                </a>
-                <p class="mb-0 text-white-50">Makes finding deals easy</p>
-                <a href="{{ url_for('lasttenresults') }}">
-                <p class="mb-0 text-white-50">See the last ten results now!</p>
-                </a>
-                <hr class="d-none d-lg-block mb-0 ml-0">
+        <!-- Project Two Row -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/img/riho-kroll-RgLaH00kZOk-unsplash.jpg" alt="">
+          </div>
+          <div class="col-lg-6 order-lg-first">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100 justify-content-center">
+                <div class="project-text w-100% my-auto text-center">
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('dicebook') }}">
+                  <h4 class="text-white">Roll Dice</h4>
+                  </a>
+                  <p class="mb-0 text-white-50">Custom dice simulator</p>
+                  <!--
+                  <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                  -->
+                  <hr class="d-none d-lg-block mb-0 mr-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project Three Row -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/img/white-graphing-paper-164686.jpg" alt="">
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100 justify-content-center">
+                <div class="project-text w-100% my-auto text-center">
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('apibook') }}">
+                  <h4 class="text-white">ApiBook</h4>
+                  </a>
+                  <p class="mb-0 text-white-50">Getting to know API's</p>
+                  <hr class="d-none d-lg-block mb-0 ml-0">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Project Two Row -->
-
-      <div class="row justify-content-center no-gutters">
-        <div class="col-lg-6">
-          <img class="img-fluid" src="/static/img/riho-kroll-RgLaH00kZOk-unsplash.jpg" alt="">
-        </div>
-        <div class="col-lg-6 order-lg-first">
-          <div class="bg-black text-center h-100 project">
-            <div class="d-flex h-100 justify-content-center">
-              <div class="project-text w-100% my-auto text-center">
-                <a class="nav-link js-scroll-trigger" href="{{ url_for('dicebook') }}">
-                <h4 class="text-white">Roll Dice</h4>
-                </a>
-                <p class="mb-0 text-white-50">Custom dice simulator</p>
-                <!--
-                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
-                -->
-                <hr class="d-none d-lg-block mb-0 mr-0">
-              </div>
-            </div>
-          </div>
-        </div>
+    </section>
+  <!-- Project Four Row -->
+    <div class="row justify-content-center no-gutters">
+      <div class="col-lg-6">
+        <img class="img-fluid" src="/static/img/jan-tinneberg-tVIv23vcuz4-unsplash.jpg" alt="">
       </div>
-      <!-- Project Three Row -->
-      <div class="row justify-content-center no-gutters">
-        <div class="col-lg-6">
-          <img class="img-fluid" src="/static/img/white-graphing-paper-164686.jpg" alt="">
-        </div>
-        <div class="col-lg-6">
-          <div class="bg-black text-center h-100 project">
-            <div class="d-flex h-100 justify-content-center">
-              <div class="project-text w-100% my-auto text-center">
-                <a class="nav-link js-scroll-trigger" href="{{ url_for('apibook') }}">
-                <h4 class="text-white">ApiBook</h4>
-                </a>
-                <p class="mb-0 text-white-50">Getting to know API's</p>
-                <hr class="d-none d-lg-block mb-0 ml-0">
-              </div>
+      <div class="col-lg-6 order-lg-first">
+        <div class="bg-black text-center h-100 project">
+          <div class="d-flex h-100 justify-content-center">
+            <div class="project-text w-100% my-auto text-center">
+              <a class="nav-link js-scroll-trigger" href="{{ url_for('flasksitebook') }}">
+              <h4 class="text-white">Notebook for this site</h4>
+              </a>
+              <p class="mb-0 text-white-50">Built with Flask</p>
+              <hr class="d-none d-lg-block mb-0 mr-0">
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-<!-- Project Four Row -->
-  <div class="row justify-content-center no-gutters">
-    <div class="col-lg-6">
-      <img class="img-fluid" src="/static/img/jan-tinneberg-tVIv23vcuz4-unsplash.jpg" alt="">
-    </div>
-    <div class="col-lg-6 order-lg-first">
-      <div class="bg-black text-center h-100 project">
-        <div class="d-flex h-100 justify-content-center">
-          <div class="project-text w-100% my-auto text-center">
-            <a class="nav-link js-scroll-trigger" href="{{ url_for('flasksitebook') }}">
-            <h4 class="text-white">Notebook for this site</h4>
-            </a>
-            <p class="mb-0 text-white-50">Built with Flask</p>
-            <!--
-            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
-            -->
-            <hr class="d-none d-lg-block mb-0 mr-0">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock content %}
+  {% endblock content %}
