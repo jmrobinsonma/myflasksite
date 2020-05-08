@@ -1,51 +1,51 @@
 version: 2.1
 jobs:
   test:
-	docker:
-	  - image: circleci/python:3.6.2-stretch-browsers
-		environment:
-		  FLASK_CONFIG: testing
-	steps:
-	  - checkout
-	  - run: mkdir test-reports
-	  - run:
-		  name: Install Python deps in a venv
-		  command: |
-			python3 -m venv venv
-			. venv/bin/activate
-			pip install -r requirements.txt
-	  - run:
-		  name: Run Tests
-		  command: |
-			. venv/bin/activate
-			python test.py
-	  - store_artifacts:
-		  path: test-reports/
-		  destination: tr1
-	  - store_test_results:
-		  path: test-reports/
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+        environment:
+          FLASK_CONFIG: testing
+    steps:
+      - checkout
+      - run: mkdir test-reports
+      - run:
+          name: Install Python deps in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: Run Tests
+          command: |
+            . venv/bin/activate
+            python test.py
+      - store_artifacts:
+          path: test-reports/
+          destination: tr1
+      - store_test_results:
+          path: test-reports/
   deploy:
-	machine:
-		enabled: true
-	steps:
-	  - checkout
-	  - run:
-		  command: |
-			git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    machine:
+        enabled: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
   version: 2.1
   test-deploy:
-	jobs:
-	  - test:
-		filters:
-		  branches:
-			only: master
-	  - deploy:
-		  requires:
-			- test
-		  filters:
-			branches:
-			  only: master
+    jobs:
+      - test:
+        filters:
+          branches:
+            only: master
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
 
 
