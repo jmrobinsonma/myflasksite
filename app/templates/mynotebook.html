@@ -17238,6 +17238,52 @@ $ docker-compose down</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Scripted syntax seems to work better for me than declarative syntax</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>THIS WORKS</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>node {
+    stage('SCM Checkout'){
+        git 'git@github.com:jmrobinsonma/myflasksite.git'
+    }
+    stage('Building'){
+        sh 'python3 -m venv venv'
+        sh '. venv/bin/activate'
+        sh 'pip3 install -r requirements.txt'
+    }
+    stage('Testing'){
+        sh 'python3 test.py'
+    }
+    stage('Docker build'){
+        sh 'docker build -t jmrobinson/myflasksite .'
+    }
+    stage('Push Docker image'){
+        withCredentials([string(credentialsId: 'dockerpass', variable: 'DOCKERPWD')]) {
+            sh "docker login -u jmrobinson -p ${DOCKERPWD}"
+        }
+        sh 'docker push jmrobinson/myflasksite'
+    }
+}</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>PARAMETERS</p>
 
 </div>

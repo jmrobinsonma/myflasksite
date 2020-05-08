@@ -16650,20 +16650,6 @@ cd ~/</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="layout.html">layout.html<a class="anchor-link" href="#layout.html">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="home.html">home.html<a class="anchor-link" href="#home.html">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="test.py">test.py<a class="anchor-link" href="#test.py">&#182;</a></h2>
 </div>
 </div>
@@ -16751,6 +16737,72 @@ def apibook():
 def lasttenresults():
     results = requests.get('http://localhost:5001/last-ten')
     return render_template('lasttenresults.html', results=json.loads(results.text))</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Added-dev-branch-to-github-so-I-had-to-alter-config.yml-to-only-build-master">Added dev branch to github so I had to alter config.yml to only build master<a class="anchor-link" href="#Added-dev-branch-to-github-so-I-had-to-alter-config.yml-to-only-build-master">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>workflows:
+  version: 2.1
+  test-deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Added-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">Added a Jenkins pipeline to push docker image of site to dockerhub<a class="anchor-link" href="#Added-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>node {
+    stage('SCM Checkout'){
+        git 'git@github.com:jmrobinsonma/myflasksite.git'
+    }
+    stage('Building'){
+        sh 'python3 -m venv venv'
+        sh '. venv/bin/activate'
+        sh 'pip3 install -r requirements.txt'
+    }
+    stage('Testing'){
+        sh 'python3 test.py'
+    }
+    stage('Docker build'){
+        sh 'docker build -t jmrobinson/myflasksite .'
+    }
+    stage('Push Docker image'){
+        withCredentials([string(credentialsId: 'dockerpass', variable: 'DOCKERPWD')]) {
+            sh "docker login -u jmrobinson -p ${DOCKERPWD}"
+        }
+        sh 'docker push jmrobinson/myflasksite'
+    }
+}</code></pre>
 
 </div>
 </div>
