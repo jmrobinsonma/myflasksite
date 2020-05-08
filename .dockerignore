@@ -1,0 +1,7 @@
+/Procfile
+/Jenkinsfile
+/*__pycache__
+/.circleci
+/Dockerfile
+/.git
+/.dockerignore
