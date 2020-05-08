@@ -1,28 +1,17 @@
-pipeline {
-    agent { label 'docker' }
-    options {
-        skipStagesAfterUnstable()
+node {
+    stage('SCM Checkout'){
+        git 'git@github.com:jmrobinsonma/myflasksite.git'
     }
-    stages {
-        stage('Test') {
-            agent {
-                dockerfile {
-                    filename 'testing.Dockerfile'
-            }
+    stage('Test'){
+        sh 'python3 test.py'
+    }
+    stage('Docker build'){
+        sh 'docker build -t jmrobinson/site-testpipe .'
+    }
+    stage('Push Docker image'){
+        withCredentials([string(credentialsId: 'dockerpass', variable: 'DOCKERPWD')]) {
+            sh "docker login -u jmrobinson -p ${DOCKERPWD}"
         }
-            steps {
-                sh "python3 test.py"
-            }
-        }
-        stage('Deliver') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                }
-            }
-            steps {
-                sh "docker push jmrobinson/site-testpipe"
-            }
-        }
+        sh 'docker push jmrobinson/site-testpipe'
     }
 }
