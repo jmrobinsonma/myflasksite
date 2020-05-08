@@ -2,6 +2,11 @@ node {
     stage('SCM Checkout'){
         git 'git@github.com:jmrobinsonma/myflasksite.git'
     }
+    stage('Build'){
+        sh 'python3 -m venv venv'
+        sh '. venv/bin/activate'
+        sh 'pip3 install -r requirements.txt'
+    }
     stage('Test'){
         sh 'python3 test.py'
     }
