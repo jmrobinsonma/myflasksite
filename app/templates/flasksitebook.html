@@ -16493,7 +16493,12 @@ Werkzeug==1.0.1</code></pre>
 
 </div>
 </div>
-</div>version: 2.1
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>version: 2.1
 jobs:
   build:
     docker:
@@ -16537,7 +16542,11 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: master</code></pre>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -16773,7 +16782,60 @@ def lasttenresults():
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Added-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">Added a Jenkins pipeline to push docker image of site to dockerhub<a class="anchor-link" href="#Added-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">&#182;</a></h2>
+<h2 id="Added-a-volume-to-the-Dockerfile">Added a volume to the Dockerfile<a class="anchor-link" href="#Added-a-volume-to-the-Dockerfile">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>FROM python:3.8-slim-buster
+WORKDIR /myapp
+COPY . /myapp
+ENV FLASK_APP=main.py
+RUN pip3 install -r requirements.txt
+VOLUME /myapp
+EXPOSE 5000
+CMD ["flask", "run", "--host=0.0.0.0"]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Made-a-Dockerfile-for-a-testing-instance">Made a Dockerfile for a testing instance<a class="anchor-link" href="#Made-a-Dockerfile-for-a-testing-instance">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>testing.Dockerfile</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>FROM python:3.8-slim-buster
+RUN mkdir /test
+WORKDIR /test
+COPY . /test
+RUN pip3 install -r requirements.txt
+VOLUME /test
+CMD ["python3", "test.py"]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Made-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">Made a Jenkins pipeline to push docker image of site to dockerhub<a class="anchor-link" href="#Made-a-Jenkins-pipeline-to-push-docker-image-of-site-to-dockerhub">&#182;</a></h2>
 </div>
 </div>
 </div>
