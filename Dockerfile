@@ -6,4 +6,3 @@ RUN pip3 install -r requirements.txt
 VOLUME /myapp
 EXPOSE 5000
 CMD ["flask", "run", "--host=0.0.0.0"]
-
