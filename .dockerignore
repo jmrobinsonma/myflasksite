@@ -1,7 +1,9 @@
 /Procfile
 /Jenkinsfile
-/*__pycache__
+/__pycache__
 /.circleci
 /Dockerfile
 /.git
 /.dockerignore
+/test.py
+/testing.Dockerfile

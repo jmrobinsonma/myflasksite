@@ -17198,6 +17198,74 @@ if __name__ == '__main__':
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Mission-to-Zyxx-Youtube-api">Mission to Zyxx Youtube api<a class="anchor-link" href="#Mission-to-Zyxx-Youtube-api">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>import os
+import json
+import smtplib
+from youtube_api import YouTubeDataAPI
+from email.message import EmailMessage
+
+api_key = "AIzaSyDdfG7DpU3Sc0nwSz7teuO6sRcJ_2TorYY"
+yt = YouTubeDataAPI(api_key)
+
+results = yt.get_video_metadata('XyESpUoBuNM')
+title = results['video_title']
+views = int(results['video_view_count'])
+likes = int(results['video_like_count'])
+
+with open("live_likes.json", 'r') as f:
+    json_data = json.load(f)
+    new_views = (views - json_data['views'][-1])
+    new_likes = (likes - json_data['likes'][-1])
+    if new_views:
+        json_data['views'].append(views)
+    if new_likes:
+        json_data['likes'].append(likes)
+
+with open("live_likes.json", 'w') as f:
+    json.dump(json_data, f, indent=2)
+
+view_msg = f"{views} Total views {new_views} new"
+like_msg = f"{likes} Total likes {new_likes} new"
+
+main_msg = f"""
+
+Congratulations! You're Zyxx Famous!
+I'll Track Your Exposure So You Don't Have to!
+
+    {view_msg}
+    {like_msg}
+
+Love You!! xoxoxo!!
+
+"""
+
+
+EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+
+msg = EmailMessage()
+msg['Subject'] = title
+msg['From'] = EMAIL_ADDRESS
+msg['to'] = EMAIL_ADDRESS
+msg.set_content(main_msg)
+with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+    smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+    smtp.send_message(msg)</code></pre>
+
+</div>
+</div>
+</div>
     </div>
   </div>
 </body>
