@@ -1,6 +1,6 @@
 /Procfile
 /Jenkinsfile
-/__pycache__
+/__pycache__/
 /.circleci
 /Dockerfile
 /.git
