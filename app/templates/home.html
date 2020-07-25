@@ -12,7 +12,7 @@
                   <a class="nav-link js-scroll-trigger" href="{{ url_for('flasksitebook') }}">
                   <h4 class="text-white">Notebook for this site</h4>
                   </a>
-                  <p class="mb-0 text-white-50">My goal is to build a simple application to use as a basis for furthering my understanding of devops concepts
+                  <p class="mb-0 text-white-50">My goal is to build a simple application to use as a basis for furthering my understanding of devops and sre concepts
 
 I decided to build a flask website that serves Jupyter Notebooks as a personal online programming reference containing project boilerplate code, links, and snippets.</p>
                   <hr class="d-none d-lg-block mb-0 ml-0">
@@ -34,9 +34,6 @@ I decided to build a flask website that serves Jupyter Notebooks as a personal o
                   <h4 class="text-white">DealScraper</h4>
                   </a>
                   <p class="mb-0 text-white-50">Deals find me</p>
-                  <a href="{{ url_for('lasttenresults') }}">
-                  <p class="mb-0 text-white-50">See the last ten results now!</p>
-                  </a>
                   <hr class="d-none d-lg-block mb-0 mr-0">
                 </div>
               </div>
@@ -77,6 +74,9 @@ I decided to build a flask website that serves Jupyter Notebooks as a personal o
               <h4 class="text-white">APIBook</h4>
               </a>
               <p class="mb-0 text-white-50">Getting familiar with api's</p>
+              <a href="{{ url_for('spacex_launch_data') }}">
+              <p class="mb-0 text-white-50">See the last available SpaceX launch data now!</p>
+              </a>
               <hr class="d-none d-lg-block mb-0 mr-0">
             </div>
           </div>

@@ -22,14 +22,16 @@ def dicebook():
 
 @app.route('/apibook')
 def apibook():
-    return render_template('apibook.html')
+	return render_template('apibook.html')
 
 @app.route('/flasksitebook')
 def flasksitebook():
-    return render_template('flasksitebook.html')
+	return render_template('flasksitebook.html')
 
-@app.route('/lasttenresults')
-def lasttenresults():
-    results = requests.get('http://localhost:5001/last-ten')
-    return render_template('lasttenresults.html', results=json.loads(results.text))
+@app.route('/spacex_launch_data')
+def spacex_launch_data():
+	url = "https://api.spacexdata.com/v3/launches/latest"
+	response = requests.get(url)
+	result = json.loads(response.text)
+	return render_template('spacex_launch_data.html', result=result, url=url)
 

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="bg-black">
+		<div class="container" style="text-align: center;">
+			<h1 class="text-white">SPACE-X MISSION REVIEW</h1>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">MISSION NAME: {{ result['mission_name'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">LAUNCH DATE: {{ result['launch_date_local'].split('T')[0] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">CREW: {{ result['crew'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">DETAILS:</h4>
+			<h4 class="ml-2 text-white">{{ result['details'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">LAUNCH SUCCESS: {{ result['launch_success'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">PAYLOAD: {{ result['rocket']['second_stage']['payloads'][0]['payload_type'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">ROCKET: {{ result['rocket']['rocket_name'] }}</h4>
+		</div>
+		<div>
+			<h4 class="ml-2 text-white">LAUNCH SITE: {{ result['launch_site']['site_name_long'] }}</h4>
+		</div>
+	</div>
+{% endblock content %}
