@@ -16524,6 +16524,71 @@ $jupyter nbconvert --to pdf &lt;notebook\&gt;.ipynb</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Inspect ip addresses connected to server</p>
+<ul>
+<li>Check server load</li>
+</ul>
+
+<pre><code>$ grep processor /proc/cpuinfo | wc -l
+</code></pre>
+<ul>
+<li>Find ip addresses that are connected to the server</li>
+</ul>
+
+<pre><code>$ netstat -ntu|awk '{print $5}'|cut -d: -f1 -s|sort|uniq -c|sort -nk1 -r
+</code></pre>
+<ul>
+<li>Ban ip address</li>
+</ul>
+
+<pre><code>$ sudo route add ADDRESS reject</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Network Scanning</p>
+<ul>
+<li>find wlan broadcast ipv4</li>
+</ul>
+
+<pre><code>$ ip add
+</code></pre>
+<ul>
+<li>see all devices</li>
+</ul>
+
+<pre><code>$ sudo nmap -sN &lt;ip: 10.0.0.1-255&gt;
+</code></pre>
+<ul>
+<li>get mac address and use the first three pairs of characters to identify hardware</li>
+</ul>
+
+<pre><code>$ arp</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Filter for brute-force interactive SSH logins</p>
+
+<pre><code>$ grep sshd.\*Failed /var/log/auth.log | less
+
+</code></pre>
+<p>Look for failed connections (i.e. no login attempted, could be a port scanner, etc.)</p>
+
+<pre><code>$ grep sshd.*Did /var/log/auth.log | less</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Scroll mail</p>
 
 <pre><code>$ sudo less /var/mail/$(whoami)    </code></pre>
@@ -16816,6 +16881,31 @@ $ du -h -s *    # summary does not list sub directories    </code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://www.askpython.com/python/examples/find-all-methods-of-class">Explore methods and properties of a given class</a></p>
+
+<pre><code>&gt;&gt;&gt; method_list = [method for method in dir(&lt;Class&gt;)]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using Counter for most common</p>
+
+<pre><code>from collections import Counter
+
+num_list = [1,2,2,3,3,3,4,4,4,4]
+countable_list = Counter(num_list)
+ranked_nums = countable_list.most_common()
+print(ranked_nums) # [(4, 4), (3, 3), (2, 2), (1, 1)]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://medium.com/@hariyanto.tan95/set-up-sublime-text-3-to-use-python-3-c845b742c720">Sublime python3 build setting</a></p>
 
 <pre><code>{
@@ -16832,9 +16922,9 @@ $ du -h -s *    # summary does not list sub directories    </code></pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/">Python Virtual Environment</a></p>
 
-<pre><code>$ python3 -m venv &lt;environment_name\&gt;
+<pre><code>$ python3 -m venv &lt;environment_name&gt;
 
-$ source &lt;environment_name\&gt;/bin/activate
+$ source &lt;environment_name&gt;/bin/activate
 
 $ deactivate</code></pre>
 
@@ -17696,19 +17786,6 @@ $ flask run -h 0.0.0.0</code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -18018,6 +18095,11 @@ stdout_logfile=/var/log/jupyterpage/jupyterpage.out.log</code></pre>
 <pre><code>root$ adduser &lt;name&gt;
 
 </code></pre>
+<p>Remove user -Also, delete folder /home/name</p>
+
+<pre><code>$ userdel &lt;name&gt;
+
+</code></pre>
 <p>Root permission for user</p>
 
 <pre><code>root$ visudo
@@ -18291,14 +18373,6 @@ $ sudo systemctl reload nginx &amp;&amp; sudo systemctl restart nginx</code></pr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/">Flask-Sqlalchemy select, insert, delete</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>Basic Template</p>
 
 </div>
@@ -18317,7 +18391,8 @@ class Posts(Base):
 
     __tablename__ = "base"
 
-    timing = Column(String(120), unique=False, nullable=False,   primary_key=True)
+    id = Column(Int(), unique=True, nullable=False, primary_key=True)
+    time = Column(String(120), unique=False, nullable=False)
     title_text = Column(String(120), unique=False, nullable=False)
     price = Column(String(120), unique=False, nullable=False)
     link = Column(String(120), unique=False, nullable=False)
@@ -18387,6 +18462,274 @@ for i,r in enumerate(last_five[::-1]):
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="FLASK-SQLALCHEMY">FLASK-SQLALCHEMY<a class="anchor-link" href="#FLASK-SQLALCHEMY">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/">Flask-Sqlalchemy select, insert, delete</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="POSTMAN">POSTMAN<a class="anchor-link" href="#POSTMAN">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="MAILGUN">MAILGUN<a class="anchor-link" href="#MAILGUN">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="WERKZEUG">WERKZEUG<a class="anchor-link" href="#WERKZEUG">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="DATABASE-MIGRATION-WITH-FLASK-MIGRATE-&amp;-ALEMBIC">DATABASE MIGRATION WITH FLASK-MIGRATE &amp; ALEMBIC<a class="anchor-link" href="#DATABASE-MIGRATION-WITH-FLASK-MIGRATE-&amp;-ALEMBIC">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All changes to the database should be made through the alembic script to avoid version problems</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Always backup databases!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dependency</p>
+
+<pre><code>$ pip3 install flask-migrate
+
+</code></pre>
+<p>Initialize</p>
+
+<pre><code>$ flask db init
+
+</code></pre>
+<p>Migrate with message</p>
+
+<pre><code>$ flask db migrate -m "&lt;message&gt;"
+
+</code></pre>
+<p>Upgrade</p>
+
+<pre><code>$ flask db upgrade
+
+</code></pre>
+<p>Downgrade -Remember to name unique constraints in the alembic script or else downgrade will not work</p>
+
+<pre><code>$ flask db downgrade</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="POSTGRES">POSTGRES<a class="anchor-link" href="#POSTGRES">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dependency</p>
+
+<pre><code>$ pip3 install psycopg2-binary
+
+
+</code></pre>
+<p>Access server</p>
+
+<pre><code>$ psql
+
+</code></pre>
+<p>Describe users</p>
+
+<pre><code>$ \du
+
+</code></pre>
+<p>Set password</p>
+
+<pre><code>$ \password
+
+</code></pre>
+<p>Database url</p>
+
+<pre><code>$ postgresql://&lt;user&gt;:&lt;password&gt;@localhost:5432/&lt;database_name&gt;
+
+</code></pre>
+<p>Quit</p>
+
+<pre><code>$ \q
+
+
+</code></pre>
+<p>List all databases on server</p>
+
+<pre><code>$ \l
+
+</code></pre>
+<p>Remember to drop table and rebuild tables when making changes to column specs</p>
+
+<pre><code>$ DROP TABLE &lt;tablename&gt;;
+
+</code></pre>
+<p>Create a new database</p>
+
+<pre><code>$ CREATE DATABASE sales;
+
+</code></pre>
+<p>Connect to a database</p>
+
+<pre><code>$ \c sales
+
+</code></pre>
+<p>Direct login to selected database</p>
+
+<pre><code>$ psql -U &lt;user&gt; -d &lt;database&gt;
+
+</code></pre>
+<p>List tables in current database</p>
+
+<pre><code>$ \dt
+
+</code></pre>
+<p>Describe specific table</p>
+
+<pre><code>$ \d+ &lt;tablename&gt;
+
+</code></pre>
+<p>Save command history to file</p>
+
+<pre><code>$ \s &lt;filename&gt;
+
+</code></pre>
+<p>Alembic version</p>
+
+<pre><code>$ SELECT * FROM alembic_version;</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="OAuth-2.0">OAuth 2.0<a class="anchor-link" href="#OAuth-2.0">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ROLES</p>
+<p>User: The party whose data we are accessing. They authorize the Client to access their account.</p>
+<p>API: Hosts the protected user accounts. Verifies identity of the user when they authenticate. Issues access tokens to the Client after User authorises them.</p>
+<p>Client: This is the application that wants access to the User's account. First, User must authorise that access. Then, API must validate that authorisation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Client</p>
+<p>oa.py -Top level file to instantiate github</p>
+
+<pre><code>import os
+from flask_oauthlib.client import OAuth
+
+oauth = OAuth()
+
+github = oauth.remote_app(
+    'github',
+    consumer_key=os.getenv('GITHUB_CONSUMER_KEY'),
+    consumer_secret=os.getenv('GITHUB_CONSUMER_SECRET'),
+    request_token_params={'scope': 'user:email'},
+    base_url='https://ap.github.com/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://github.com/login/oauth/access_token',
+    authorize_url='https://github.com/login/oauth/authorize'
+    )</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Callback Resource</p>
+<p>/resources/github_login.py</p>
+
+<pre><code>from flask_restful import Resource
+from oa import github
+
+class GithubLogin(Resource):
+    @classmethod
+    def get(cls):
+        return github.authorize(callback='http://localhost:5000/login/github/authorized')</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>app.py</p>
+
+<pre><code>from oa import oauth
+from resources.github_login import GithubLogin
+
+api.add_resource(GithubLogin, "/login/github")
+
+if __name__ == "__main__":
+    oauth.init_app(app)</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
