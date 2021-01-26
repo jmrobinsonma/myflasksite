@@ -16524,6 +16524,84 @@ $jupyter nbconvert --to pdf &lt;notebook\&gt;.ipynb</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Search man pages by keyword</p>
+
+<pre><code>$ man -k &lt;term&gt;
+
+</code></pre>
+<p>Or pass a string as argument</p>
+
+<pre><code>$ man -k "&lt;pass a string term here&gt;"</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Print last command of type</p>
+
+<pre><code>$ !ping:p  # ping 8.8.8.8
+
+</code></pre>
+<p>Use CTRL+r to live search command history, CTRL+g to exit without running</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To run private commands with a prefixed whitespace during a session</p>
+
+<pre><code>$ HISTCONTROL=&lt;ignorspace or ignoreboth&gt;
+
+</code></pre>
+<p>Permanently</p>
+
+<pre><code>$ echo "HISTCONTROL=&lt;ignorespace/ignoreboth&gt;" &gt;&gt; .bashrc</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>History time format</p>
+
+<pre><code>$ HISTTIMEFORMAT="%d/%m/%y %T"</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Terminate sudo privilege immediately</p>
+
+<pre><code>$ sudo -k
+
+</code></pre>
+<p>Extend sudo privilege immediately</p>
+
+<pre><code>$ sudo -v</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Change a users password from root</p>
+
+<pre><code># passwd &lt;user&gt;</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Inspect ip addresses connected to server</p>
 <ul>
 <li>Check server load</li>

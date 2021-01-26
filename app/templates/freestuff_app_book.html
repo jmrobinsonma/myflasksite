@@ -16343,7 +16343,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": false, "skip_h1_title": true, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "589px", "left": "1280px", "top": "84px", "width": "320px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": true, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "589px", "left": "1280px", "top": "84px", "width": "320px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -16983,19 +16983,45 @@ https://westernmass.craigslist.org/zip/d/chicopee-free-older-working-tvs/7157560
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this instance I am scraping for used cars instead of free stuff just by supplying new urls and a database name</p>
+<p>The app now uses argparse and requires a minimum of three arguments</p>
 
 </div>
 </div>
-</div>
+</div>README
+
+# This is a terminal app that will scrape Craigslist
+# and send an email with the results. This app uses
+# argparse and requires a minimum of three commandline
+# arguments.
+#
+# Example:
+# $ python3 dealscraper.py free-stuff -u 'https://westernmass.craigslist.org/search/zip?hasPic=1'
+#
+# The first argument is a short name for the results 
+# message and database. Second argument is an email 
+# address to send results to. For the third argument 
+# at least one craigslist url must be entered. For best results
+# I suggest applying filters on the Craigslist page so that url
+# contains the most accurate search criteria. Each 
+# url must be flagged -u and be in single quotes following a whitespace
+#
+# Example:
+# -u 'http://*/*'
+#
+# An example of when i would use multiple url's is if I was 
+# looking for a clothes washing machine and dryer. I'd use one url to
+# search for "washing machine", another to search "dryer", and
+# a third url to search "washer and dryer"
+
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">get</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
@@ -17003,246 +17029,266 @@ https://westernmass.craigslist.org/zip/d/chicopee-free-older-working-tvs/7157560
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">relationship</span>
 <span class="kn">from</span> <span class="nn">email.message</span> <span class="kn">import</span> <span class="n">EmailMessage</span>
 
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;DealScraper&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+	<span class="s1">&#39;name&#39;</span><span class="p">,</span>
+	<span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+	<span class="n">help</span><span class="o">=</span><span class="s1">&#39;enter a title&#39;</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+	<span class="s1">&#39;client_email&#39;</span><span class="p">,</span>
+	<span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+	<span class="n">help</span><span class="o">=</span><span class="s1">&#39;enter an email address&#39;</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+	<span class="s1">&#39;-u&#39;</span><span class="p">,</span>
+	<span class="n">help</span><span class="o">=</span><span class="s1">&#39;enter each CL url with a -u and single quotes, ex: -u </span><span class="se">\&#39;</span><span class="s1">http://</span><span class="se">\&#39;</span><span class="s1"> -u </span><span class="se">\&#39;</span><span class="s1">http://</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span>
+	<span class="n">dest</span><span class="o">=</span><span class="s1">&#39;urls&#39;</span><span class="p">,</span> 
+	<span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+	<span class="n">action</span><span class="o">=</span><span class="s1">&#39;append&#39;</span> 
+<span class="p">)</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-q&#39;</span><span class="p">,</span><span class="s1">&#39;--quiet&#39;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+<span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span><span class="s1">&#39;--verbose&#39;</span><span class="p">,</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># SETUP LOCAL DATABASE </span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
 
-
 <span class="k">class</span> <span class="nc">Posts</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;posts&quot;</span>
 
-    <span class="n">timing</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">timing</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">title_text</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">price</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">link</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">120</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-
 <span class="k">class</span> <span class="nc">DealScraper</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">client_email</span><span class="p">):</span>
+		<span class="c1"># REMOVE SINGLE QUOTES FROM ARGPARSE INPUT </span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">name</span><span class="p">,):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instance_responses</span> <span class="o">=</span> <span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">client_email</span> <span class="o">=</span> <span class="n">client_email</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">False</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">instance_filename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">instance_responses</span> <span class="o">=</span> <span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># USE IF/ELSE CONDITIONALS IN THIS FUNCTION TO DEFINE PERSONALIZED </span>
+<span class="c1"># SEARCH CRITERIA, SCRAPE, AND POPULATE RESULT LISTS</span>
+	<span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
+				<span class="n">response</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+				<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+				<span class="n">posts</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-row&#39;</span><span class="p">)</span>
+				
+				<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+					<span class="n">post_title</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-title hdrlnk&#39;</span><span class="p">)</span>
+					<span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+					<span class="c1"># SELECT A REGION HERE TO REFINE RESULTS</span>
+					<span class="n">region</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">post_link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;westernmass&#39;</span><span class="p">)</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
-                <span class="n">response</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-                <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
-                <span class="n">posts</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-row&#39;</span><span class="p">)</span>
+					<span class="k">if</span> <span class="n">region</span><span class="p">:</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">+=</span> <span class="mi">1</span>
 
-                <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-                    <span class="n">post_title</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-info&#39;</span><span class="p">)</span>
-                    <span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-                    <span class="n">region</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">post_link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-                        <span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;westernmass&#39;</span><span class="p">)</span>
+						<span class="n">post_title_text</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">text</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_text</span><span class="p">)</span>
 
-                    <span class="k">if</span> <span class="n">region</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span> <span class="o">+=</span> <span class="mi">1</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_link</span><span class="p">)</span>
 
-                        <span class="n">post_title_text</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_text</span><span class="p">)</span>
+						<span class="n">post_price</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_price</span><span class="p">)</span>
 
-                        <span class="n">post_link</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_link</span><span class="p">)</span>
+						<span class="n">post_datetime</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span> <span class="s1">&#39;result-date&#39;</span><span class="p">)[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+						<span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_datetime</span><span class="p">)</span>
 
-                        <span class="n">post_price</span> <span class="o">=</span> <span class="n">post_title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
-                            <span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_price</span><span class="p">)</span>
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem scraping results!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-                        <span class="n">post_datetime</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
-                            <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;result-date&#39;</span><span class="p">)[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_datetime</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">post_timing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_title_texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_posts</span><span class="p">)</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_results</span>
 
-    <span class="k">def</span> <span class="nf">db_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># echo=True for output to console</span>
-            <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;sqlite:////home/jrob/Databases/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.db&#39;</span><span class="p">)</span>
-            <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-            <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem connecting to the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No new </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> search results&quot;</span><span class="p">)</span>
+			<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">db_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-        <span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span>
+<span class="c1"># DATABASE CONNECTION </span>
+	<span class="k">def</span> <span class="nf">db_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="c1"># BE CERTAIN THAT THE DB URI IS CORRECT</span>
+			<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sqlite:////home/jrob/Databases/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.db&#39;</span><span class="p">)</span>  <span class="c1">#echo=True for output to console</span>
+			<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+			<span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 
-        <span class="n">duplicates</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post_links</span><span class="p">)):</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">post</span> <span class="o">=</span> <span class="n">Posts</span><span class="p">()</span>
-                    <span class="n">post</span><span class="o">.</span><span class="n">timing</span> <span class="o">=</span> <span class="n">post_timing</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="n">post</span><span class="o">.</span><span class="n">title_text</span> <span class="o">=</span> <span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                    <span class="n">post</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                    <span class="n">post</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-                <span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">duplicates</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="p">,</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span> <span class="o">=</span> <span class="n">num_posts</span> <span class="o">-</span> <span class="n">duplicates</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem updating the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem connecting to the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">show_num_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_new_results</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">):</span>
-        <span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span>
+<span class="c1"># CHECK FOR DUPLICATES (IntegrityError) AND UPDATE DB WITH UNIQUE RESULTS</span>
+	<span class="k">def</span> <span class="nf">db_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_results</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+		<span class="n">post_timing</span><span class="p">,</span> <span class="n">post_title_texts</span><span class="p">,</span> <span class="n">post_prices</span><span class="p">,</span> <span class="n">post_links</span><span class="p">,</span> <span class="n">num_posts</span> <span class="o">=</span> <span class="n">instance_results</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span><span class="si">}</span><span class="s2"> New results</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result </span><span class="si">{</span><span class="n">result</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="se">\n\</span>
-<span class="s2">				</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n\</span>
-<span class="s2">				</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n\</span>
-<span class="s2">				</span><span class="si">{</span><span class="n">post_links</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="n">duplicates</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">db_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+		<span class="k">try</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">create_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
-        <span class="n">prices</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">links</span> <span class="o">=</span> <span class="n">new_results</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post_links</span><span class="p">)):</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">post</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">titles</span><span class="p">):</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+				<span class="k">try</span><span class="p">:</span>
+					<span class="n">post</span> <span class="o">=</span> <span class="n">Posts</span><span class="p">()</span>
+					<span class="n">post</span><span class="o">.</span><span class="n">timing</span> <span class="o">=</span> <span class="n">post_timing</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="n">post</span><span class="o">.</span><span class="n">title_text</span> <span class="o">=</span> <span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_title_texts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+					<span class="n">post</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+					<span class="n">post</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post_links</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
-<span class="s2">Result </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">	</span><span class="si">{</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">	</span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">	</span><span class="si">{</span><span class="n">links</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+				<span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+					<span class="n">duplicates</span> <span class="o">+=</span> <span class="mi">1</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+			
+			<span class="bp">self</span><span class="o">.</span><span class="n">new_results</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_results_prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_results_titles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_results_links</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span> <span class="o">=</span> <span class="n">num_posts</span> <span class="o">-</span> <span class="n">duplicates</span>
+
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span>
+
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem updating the database!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">db_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># FORMAT LOGGED OUTPUT RESULTS MESSAGE </span>
+	<span class="k">def</span> <span class="nf">console_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
+		<span class="n">prices</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">links</span> <span class="o">=</span> <span class="n">new_results</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span><span class="si">}</span><span class="s2"> New </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> Results</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+			<span class="k">for</span> <span class="n">result</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">titles</span><span class="p">):</span>
+				<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result </span><span class="si">{</span><span class="n">result</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="se">\n\</span>
+<span class="s2">					</span><span class="si">{</span><span class="n">prices</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n\</span>
+<span class="s2">					</span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n\</span>
+<span class="s2">					</span><span class="si">{</span><span class="n">links</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No new </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> search results</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># FORMAT USER EMAIL RESULTS MESSAGE</span>
+	<span class="k">def</span> <span class="nf">client_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_results</span><span class="p">):</span>
+		<span class="n">prices</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">links</span> <span class="o">=</span> <span class="n">new_results</span>
+
+		<span class="k">for</span> <span class="n">result</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">titles</span><span class="p">):</span>
+			<span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Result </span><span class="si">{</span><span class="n">result</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">	</span><span class="si">{</span><span class="n">prices</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">	</span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">	</span><span class="si">{</span><span class="n">links</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
 <span class="s2">			&quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">+</span> <span class="n">result</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span> <span class="o">+</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">get_cred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_USER&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for username and an email will not be sent!&quot;</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your username!&quot;</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_PASS&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password and an email will not be sent!&quot;</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span>
-
-    <span class="k">def</span> <span class="nf">send_mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">results_msg</span><span class="p">):</span>
-
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">()</span>
-        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
-        <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">set_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">,</span> <span class="mi">465</span><span class="p">)</span> <span class="k">as</span> <span class="n">smtp</span><span class="p">:</span>
-                <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">)</span>
-                <span class="n">smtp</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Email Sent&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem while attempting to send your email!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span>
 
 
-<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;https://westernmass.craigslist.org/search/cta?query=subaru+forester&amp;hasPic=1&amp;max_price=5000&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;https://westernmass.craigslist.org/search/cta?query=honda+crv&amp;hasPic=1&amp;max_price=5000&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;https://westernmass.craigslist.org/search/cta?query=toyota+rav4&amp;hasPic=1&amp;max_price=5000&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;https://westernmass.craigslist.org/search/cta?query=ford+ranger+4x4&amp;hasPic=1&amp;max_price=5000&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;https://westernmass.craigslist.org/search/cta?query=nissan+frontier+4x4&amp;hasPic=1&amp;max_price=5000&quot;</span><span class="p">]</span>
+<span class="c1"># GET EMAIL CREDENTIALS</span>
+	<span class="k">def</span> <span class="nf">get_cred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_USER&#39;</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for username and an email will not be sent!&quot;</span><span class="p">)</span>
+				<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your username!&quot;</span><span class="p">)</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;EMAIL_PASS&#39;</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password and an email will not be sent!&quot;</span><span class="p">)</span>
+				<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem obtaining environment variable for your password!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span>
+
+<span class="c1"># FORMAT AND SEND EMAIL</span>
+	<span class="k">def</span> <span class="nf">send_mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">results_msg</span><span class="p">):</span>
+
+		<span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">()</span>
+		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_new_results</span><span class="si">}</span><span class="s2"> New </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> Search Results!&quot;</span>
+		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
+		<span class="n">msg</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_email</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span>
+		<span class="n">msg</span><span class="o">.</span><span class="n">set_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_msg</span><span class="p">)</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">with</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">,</span> <span class="mi">465</span><span class="p">)</span> <span class="k">as</span> <span class="n">smtp</span><span class="p">:</span>
+			    <span class="n">smtp</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAIL_PASSWORD</span><span class="p">)</span>
+			    <span class="n">smtp</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Email Sent&quot;</span><span class="p">)</span>
+
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There was a problem while attempting to send your email!</span><span class="se">\n</span><span class="s2">--&gt; </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># USE AS MANY URLS AS POSSIBLE FROM THE MOST SPECIFIC POSSIBLE SEARCHES.</span>
+<span class="c1"># SET QUERY PARAMATERS SUCH AS MIN/MAX PRICE, POSTED TODAY, SEARCH RADIUS, HAS PIC, ETC.</span>
 
 
+<span class="c1"># PUT IT ALL TOGETHER IN A MAIN FUNCTION</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+	<span class="n">ds</span> <span class="o">=</span> <span class="n">DealScraper</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">urls</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">client_email</span><span class="p">)</span>
+	<span class="n">ds</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+	<span class="n">ds</span><span class="o">.</span><span class="n">db_connect</span><span class="p">()</span>
+	<span class="n">ds</span><span class="o">.</span><span class="n">db_update</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">instance_results</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+	<span class="n">ds</span><span class="o">.</span><span class="n">console_msg</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">new_results</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">ds</span><span class="o">.</span><span class="n">num_new_results</span><span class="p">:</span>
+		<span class="n">ds</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+		<span class="n">EMAIL_ADDRESS</span><span class="p">,</span><span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">get_cred</span><span class="p">())</span>
+		<span class="n">ds</span><span class="o">.</span><span class="n">client_msg</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">new_results</span><span class="p">)</span>
+		<span class="n">ds</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">EMAIL_ADDRESS</span><span class="p">,</span><span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">results_msg</span><span class="p">)</span>
 
-    <span class="n">find_usedcars</span> <span class="o">=</span> <span class="n">DealScraper</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="s2">&quot;used-cars&quot;</span><span class="p">)</span>
-    <span class="n">find_usedcars</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-    <span class="n">find_usedcars</span><span class="o">.</span><span class="n">db_connect</span><span class="p">()</span>
-    <span class="n">find_usedcars</span><span class="o">.</span><span class="n">db_update</span><span class="p">(</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">instance_results</span><span class="p">,</span> <span class="n">find_usedcars</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-    <span class="n">find_usedcars</span><span class="o">.</span><span class="n">show_num_results</span><span class="p">(</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">num_new_results</span><span class="p">,</span> <span class="n">find_usedcars</span><span class="o">.</span><span class="n">instance_results</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">find_usedcars</span><span class="o">.</span><span class="n">num_new_results</span><span class="p">:</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">find_usedcars</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-        <span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="n">EMAIL_PASSWORD</span> <span class="o">=</span> <span class="p">(</span><span class="n">find_usedcars</span><span class="o">.</span><span class="n">get_cred</span><span class="p">())</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">create_msg</span><span class="p">(</span><span class="n">find_usedcars</span><span class="o">.</span><span class="n">new_results</span><span class="p">)</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span>
-            <span class="n">EMAIL_ADDRESS</span><span class="p">,</span> <span class="n">EMAIL_PASSWORD</span><span class="p">,</span> <span class="n">find_usedcars</span><span class="o">.</span><span class="n">results_msg</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">find_usedcars</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">find_usedcars</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
-        <span class="k">pass</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ds</span><span class="o">.</span><span class="n">db_close</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+	<span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+		<span class="k">pass</span> 
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+	<span class="n">main</span><span class="p">()</span><span class="n">a</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-0 New results
-
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
