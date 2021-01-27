@@ -16343,7 +16343,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "235px", "left": "1003px", "top": "85px", "width": "211.989px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "235px", "left": "1476px", "top": "51px", "width": "211.984px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -16518,6 +16518,43 @@ $jupyter nbconvert --to pdf &lt;notebook\&gt;.ipynb</code></pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Snippets">Snippets<a class="anchor-link" href="#Snippets">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sort by modification time</p>
+
+<pre><code>$ ls -lt
+
+</code></pre>
+<p>Sort by access time</p>
+
+<pre><code>$ ls -ltu</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Time stamps of files can be changed by using the touch command. If no options are specified the access, modify, and change times will all be updated to current time. Update modify time with -m and the change time will be updated as well.</p>
+<p>To set change time the system time must be changed with the date command</p>
+<p>Manually set time stamp</p>
+
+<pre><code>$ touch -m -t 20181230.45 file.txt
+
+</code></pre>
+<p>Set both access and modify time stamps manually</p>
+
+<pre><code>$ touch -d "2010-12-30 15:45:30" file.txt
+
+</code></pre>
+<p>Set time stamps from a reference file</p>
+
+<pre><code>$ touch file1.txt -r file2.txt</code></pre>
+
 </div>
 </div>
 </div>
